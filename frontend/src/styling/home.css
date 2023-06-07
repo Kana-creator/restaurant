@@ -1,0 +1,110 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  font-size: 98%;
+}
+
+.container-fluid {
+  min-height: 100vh;
+  background-color: #efefef;
+}
+
+.container-fluid .sideBar {
+  min-height: 100vh;
+  color: #ffffff;
+  padding: 0;
+  position: fixed;
+}
+
+.container-fluid .sideBar .head {
+  height: 70px;
+  width: 99%;
+  margin: 5px auto;
+  padding: 0 20px;
+  background-color: #24536d;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.container-fluid .sideBar .head div {
+  width: 40%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.container-fluid .sideBar .links {
+  background-color: #24536d;
+  padding: 2px 20px;
+  min-height: 85vh;
+  overflow-y: auto;
+}
+
+.container-fluid .sideBar .links .link {
+  color: #ffffff;
+  padding: 5px 20px;
+  margin: 5px 0;
+  text-decoration: none;
+}
+
+.container-fluid .sideBar .links .link .link-inner {
+  padding: 5px 20px;
+  margin: 5px 0;
+  text-decoration: none;
+  color: #efefef;
+  min-width: 250px;
+}
+
+.container-fluid .sideBar .links .link:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+}
+
+.container-fluid .body {
+  min-height: 100vh;
+  margin: 0 10px;
+  padding: 0;
+  margin: 0 25.5%;
+}
+
+.container-fluid .body .titleBar {
+  height: 70px;
+  width: 99%;
+  margin: 5px auto;
+  padding: 0 20px;
+  background-color: #ffff;
+}
+
+.container-fluid .body .main-container {
+  background-color: #fff;
+  width: 99%;
+  margin: auto;
+  min-height: 85vh;
+  padding: 20px 120px;
+}
+
+.container-fluid .body .main-container.form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.container-fluid .body .main-container.form .form-group.empty {
+  display: none;
+}
+/*# sourceMappingURL=home.css.map */
