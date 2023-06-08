@@ -21,8 +21,15 @@ const AddRestaurant = () => {
       <div className="sideBar col-md-3">
         <div className="head d-flex flex-wrap align-items-center">
           <div className="">
-            <img src={`../images/`} alt="nn" />
-            <h6>Anatoli</h6>
+            <img
+              src={`../images/Anatoli.jpg`}
+              alt="nn"
+              className="img-fluid"
+              width={40}
+              height={40}
+              style={{ borderRadius: "50%" }}
+            />
+            <h6 className="text-info">Anatoli</h6>
           </div>
           <button className="btn btn-outline-info btn-sm">Sign out</button>
         </div>

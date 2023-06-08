@@ -20,12 +20,16 @@ const RestaurantForm = (props) => {
   const [restaurant_info, setRestaurantInfo] = useState([]);
 
   const [restaurant_img, setImg] = useState(null);
+  const [imgPreview, setImgPreview] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
       .get(`http://localhost:1000/fetchRestaurantDetails/${props.restaurantID}`)
-      .then((res) => setRestaurantInfo(res.data.restaurant))
+      .then((res) => {
+        setRestaurantInfo(res.data.restaurant);
+        setRestaurant(res.data.restaurant);
+      })
       .catch((error) => alert(error));
   }, [props.restaurantID]);
 
@@ -55,6 +59,7 @@ const RestaurantForm = (props) => {
         .post("http://localhost:1000/addRestaurant", restaurant)
         .then((res) => {
           clearForm(required_fielsd);
+          setImgPreview(null);
           alert(res.data.message);
         })
         .catch((error) => alert(error));
@@ -68,14 +73,14 @@ const RestaurantForm = (props) => {
     const restaurant_image = document.getElementById("restaurant_image");
 
     const required_fielsd = [
-      restaurant_image,
+      // restaurant_image,
       restaurant_name,
       cuisin_type,
       restaurant_location,
     ];
 
     if (
-      restaurant_image.value.trim().length === 0 ||
+      // restaurant_image.value.trim().length === 0 ||
       restaurant_name.value.trim().length === 0 ||
       cuisin_type.value.trim().length === 0 ||
       restaurant_location.value.trim().length === 0
@@ -89,6 +94,7 @@ const RestaurantForm = (props) => {
         )
         .then((res) => {
           uploadImage(axios, restaurant_img);
+          setImgPreview(null);
           alert(res.data.message);
           navigate("/");
         })
@@ -157,7 +163,7 @@ const RestaurantForm = (props) => {
             : null
         }
         onChange={(e) => {
-          // setCompanyLogo(e.target.files[0]);
+          setImgPreview(URL.createObjectURL(e.target.files[0]));
           setImg(e.target.files[0]);
           setRestaurant({
             ...restaurant,
@@ -166,15 +172,15 @@ const RestaurantForm = (props) => {
         }}
       />
 
-      {props.restaurantID ? (
-        <img
-          src={`../images/${restaurant_info.map((r) => r.restaurant_image)}`}
-          alt="No image"
-          className="img-fluid"
-        />
-      ) : (
-        <img src={`../images/`} alt="No image" className="img-fluid" />
-      )}
+      <img
+        src={
+          imgPreview !== null
+            ? `${imgPreview}`
+            : `../images/${restaurant_info.map((r) => r.restaurant_image)}`
+        }
+        alt="No image"
+        className="img-fluid"
+      />
 
       {!props.restaurantID ? (
         <ButtonText

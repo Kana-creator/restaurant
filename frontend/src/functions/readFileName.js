@@ -1,4 +1,18 @@
 const readFileName = (file) => {
+  const date = new Date();
+
+  const name_ext =
+    date.getFullYear() +
+    "_" +
+    date.getMonth() +
+    "_" +
+    date.getDate() +
+    "_" +
+    date.getHours() +
+    "_" +
+    date.getMinutes() +
+    "_";
+
   var filePath = file;
   if (filePath) {
     var startIndex =

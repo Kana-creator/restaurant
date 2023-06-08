@@ -4,7 +4,11 @@ const uploadImage = (axios, image) => {
 
   axios
     .post("http://localhost:1000/uploadImage", formData)
-    .then((res) => alert(res.data.message))
+    .then((res) => {
+      if (res.data.status === "failed") {
+        alert(res.data.message);
+      }
+    })
     .catch((error) => alert(error));
 };
 
