@@ -15,6 +15,7 @@
   color: #ffffff;
   padding: 0;
   position: fixed;
+  top: 0;
 }
 
 .container-fluid .sideBar .head {
@@ -45,7 +46,7 @@
 
 .container-fluid .sideBar .links {
   background-color: #24536d;
-  padding: 2px 20px;
+  padding: 20px 20px;
   min-height: 85vh;
   overflow-y: auto;
 }
@@ -91,6 +92,10 @@
   margin: auto;
   min-height: 85vh;
   padding: 20px 120px;
+}
+
+.container-fluid .body .main-container.restaurants {
+  padding: 20px 20px;
 }
 
 .container-fluid .body .main-container.form {

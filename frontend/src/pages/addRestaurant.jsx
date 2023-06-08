@@ -11,11 +11,11 @@ const AddRestaurant = () => {
     },
     {
       title: "Add a Restaurant",
-      link: "/addRestaurants",
+      link: "/addRestaurant",
     },
   ]);
 
-  const { RestaurantID } = useParams();
+  const { restaurantID } = useParams();
   return (
     <div className="container-fluid col-12 d-flex fles-wrap justify-conent-center align-items-center">
       <div className="sideBar col-md-3">
@@ -41,7 +41,7 @@ const AddRestaurant = () => {
           <h1>Add a restaurant</h1>
         </div>
         <div className="main-container form">
-          <RestaurantForm RestaurantID={RestaurantID} />
+          <RestaurantForm restaurantID={restaurantID} />
         </div>
       </div>
     </div>

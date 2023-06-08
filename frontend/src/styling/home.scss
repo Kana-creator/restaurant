@@ -17,6 +17,7 @@
     color: #ffffff;
     padding: 0;
     position: fixed;
+    top: 0;
 
     .head {
       height: 70px;
@@ -37,7 +38,7 @@
 
     .links {
       background-color: $darkBackground;
-      padding: 2px 20px;
+      padding: 20px 20px;
       min-height: 85vh;
       overflow-y: auto;
 
@@ -83,6 +84,10 @@
       margin: auto;
       min-height: 85vh;
       padding: 20px 120px;
+    }
+
+    .main-container.restaurants {
+      padding: 20px 20px;
     }
 
     .main-container.form {

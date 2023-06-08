@@ -1,5 +1,4 @@
 const checkRequired = (inputArray) => {
-  module.exports = checkRequired;
   inputArray.forEach((element) => {
     const parent = element.parentElement;
     const small = parent.querySelector("small");

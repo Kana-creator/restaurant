@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextField from "../formFields/textField";
 import ButtonText from "../buttons/buttonText";
 
@@ -6,6 +6,8 @@ import axios from "axios";
 import checkRequired from "../functions/checkRequired";
 import uploadImage from "../functions/uploadImage";
 import readFileNname from "../functions/readFileName";
+import clearForm from "../functions/clearForm";
+import { useNavigate } from "react-router-dom";
 
 const RestaurantForm = (props) => {
   const [restaurant, setRestaurant] = useState({
@@ -18,6 +20,14 @@ const RestaurantForm = (props) => {
   const [restaurant_info, setRestaurantInfo] = useState([]);
 
   const [restaurant_img, setImg] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:1000/fetchRestaurantDetails/${props.restaurantID}`)
+      .then((res) => setRestaurantInfo(res.data.restaurant))
+      .catch((error) => alert(error));
+  }, [props.restaurantID]);
 
   const save_restaurant = () => {
     const restaurant_name = document.getElementById("restaurant_name");
@@ -43,7 +53,45 @@ const RestaurantForm = (props) => {
       uploadImage(axios, restaurant_img);
       axios
         .post("http://localhost:1000/addRestaurant", restaurant)
-        .then((res) => alert(res.data.message))
+        .then((res) => {
+          clearForm(required_fielsd);
+          alert(res.data.message);
+        })
+        .catch((error) => alert(error));
+    }
+  };
+
+  const update_restaurant = () => {
+    const restaurant_name = document.getElementById("restaurant_name");
+    const cuisin_type = document.getElementById("cuisin_type");
+    const restaurant_location = document.getElementById("restaurant_location");
+    const restaurant_image = document.getElementById("restaurant_image");
+
+    const required_fielsd = [
+      restaurant_image,
+      restaurant_name,
+      cuisin_type,
+      restaurant_location,
+    ];
+
+    if (
+      restaurant_image.value.trim().length === 0 ||
+      restaurant_name.value.trim().length === 0 ||
+      cuisin_type.value.trim().length === 0 ||
+      restaurant_location.value.trim().length === 0
+    ) {
+      checkRequired(required_fielsd);
+    } else {
+      axios
+        .put(
+          `http://localhost:1000/updateRestaurant/${props.restaurantID}`,
+          restaurant
+        )
+        .then((res) => {
+          uploadImage(axios, restaurant_img);
+          alert(res.data.message);
+          navigate("/");
+        })
         .catch((error) => alert(error));
     }
   };
@@ -118,14 +166,35 @@ const RestaurantForm = (props) => {
         }}
       />
 
-      <ButtonText
-        type="button"
-        className="col-md-12 btn btn-primary btn-md py-2"
-        label="Submit data"
-        span=""
-        id="submit_data"
-        onClick={save_restaurant}
-      />
+      {props.restaurantID ? (
+        <img
+          src={`../images/${restaurant_info.map((r) => r.restaurant_image)}`}
+          alt="No image"
+          className="img-fluid"
+        />
+      ) : (
+        <img src={`../images/`} alt="No image" className="img-fluid" />
+      )}
+
+      {!props.restaurantID ? (
+        <ButtonText
+          type="button"
+          className="col-md-12 btn btn-primary btn-md py-2"
+          label="Submit data"
+          span=""
+          id="submit_data"
+          onClick={save_restaurant}
+        />
+      ) : (
+        <ButtonText
+          type="button"
+          className="col-md-12 btn btn-primary btn-md py-2"
+          label="Update info"
+          span=""
+          id="update_nfo"
+          onClick={update_restaurant}
+        />
+      )}
     </form>
   );
 };

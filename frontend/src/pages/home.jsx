@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "../styling/home.css";
 import { Link } from "react-router-dom";
+import Restaurants from "../components/restaurants";
 const Home = () => {
   const [links, setLinks] = useState([
     {
@@ -10,7 +11,7 @@ const Home = () => {
     },
     {
       title: "Add a Restaurant",
-      link: "/addRestaurants",
+      link: "/addRestaurant",
     },
   ]);
   return (
@@ -37,7 +38,9 @@ const Home = () => {
         <div className="titleBar text-center">
           <h1>Restaurants</h1>
         </div>
-        <div className="main-container"></div>
+        <div className="main-container restaurants">
+          <Restaurants />
+        </div>
       </div>
     </div>
   );
