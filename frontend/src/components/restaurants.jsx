@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Restaurant from "./restaurant";
+import { Link } from "react-router-dom";
 
 const Restaurants = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -62,23 +62,53 @@ const Restaurants = () => {
 
   const allRestaurants =
     searchField === ""
-      ? restaurants.map((restaurant, index) => (
-          <Restaurant
-            key={index}
-            restaurant={restaurant}
-            onDelete={() =>
-              handleDelete(restaurant._id, restaurant.restaurant_image)
-            }
-          />
+      ? restaurants.slice(0, 25).map((restaurant, index) => (
+          <tr key={index}>
+            <td>{index + 1}</td>
+            <td>{restaurant.restaurant_name}</td>
+            <td>{restaurant.cuisin_type}</td>
+            <td>{restaurant.restaurant_location}</td>
+            <td className="d-flex justify-content-end col-12">
+              <Link to={`/restaurantDetails/${restaurant._id}`}>
+                <p className="btn btn-outline-info btn-sm my-0 mx-1">Details</p>
+              </Link>
+              <Link to={`/updateRestaurant/${restaurant._id}`}>
+                <p className="btn btn-outline-primary btn-sm my-0 mx-1">
+                  Update
+                </p>
+              </Link>
+              <p
+                className="btn btn-outline-danger btn-sm my-0 mx-1"
+                onClick={() => handleDelete(restaurant._id)}
+              >
+                Delete
+              </p>
+            </td>
+          </tr>
         ))
-      : searchResults.map((restaurant, index) => (
-          <Restaurant
-            key={index}
-            restaurant={restaurant}
-            onDelete={() =>
-              handleDelete(restaurant._id, restaurant.restaurant_image)
-            }
-          />
+      : searchResults.slice(0, 25).map((restaurant, index) => (
+          <tr key={index}>
+            <td>{index + 1}</td>
+            <td>{restaurant.restaurant_name}</td>
+            <td>{restaurant.cuisin_type}</td>
+            <td>{restaurant.restaurant_location}</td>
+            <td className="d-flex justify-content-end col-12">
+              <Link to={`/restaurantDetails/${restaurant._id}`}>
+                <p className="btn btn-outline-info btn-sm my-0 mx-1">Details</p>
+              </Link>
+              <Link to={`/updateRestaurant/${restaurant._id}`}>
+                <p className="btn btn-outline-primary btn-sm my-0 mx-1">
+                  Update
+                </p>
+              </Link>
+              <p
+                className="btn btn-outline-danger btn-sm my-0 mx-1"
+                onClick={() => handleDelete(restaurant._id)}
+              >
+                Delete
+              </p>
+            </td>
+          </tr>
         ));
 
   return (
@@ -87,7 +117,7 @@ const Restaurants = () => {
         {restaurants.length === 0 ? (
           <p>No restaurant found</p>
         ) : (
-          <h1>{restaurantsLength}</h1>
+          <h4 className="bg-info badge badge-info">{restaurantsLength}</h4>
         )}
 
         <div className="col-md-4">
@@ -101,7 +131,19 @@ const Restaurants = () => {
           />
         </div>
       </div>
-      {allRestaurants}
+
+      <table className="table table-striped" border={1}>
+        <thead className="bg-secondary">
+          <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Cuisin type</th>
+            <th>Location</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>{allRestaurants}</tbody>
+      </table>
     </div>
   );
 };

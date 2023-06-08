@@ -43,9 +43,9 @@ const AddRestaurant = () => {
           ))}
         </div>
       </div>
-      <div className="body col-md-9 alert-danger">
+      <div className="body col-md-9">
         <div className="titleBar text-center">
-          <h1>Add a restaurant</h1>
+          <h1>{!restaurantID ? `Add a restaurant` : `Update restaurant`}</h1>
         </div>
         <div className="main-container form">
           <RestaurantForm restaurantID={restaurantID} />

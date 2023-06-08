@@ -172,7 +172,7 @@ const RestaurantForm = (props) => {
         }}
       />
 
-      <img
+      {/* <img
         src={
           imgPreview !== null
             ? `${imgPreview}`
@@ -180,7 +180,7 @@ const RestaurantForm = (props) => {
         }
         alt="No image"
         className="img-fluid"
-      />
+      /> */}
 
       {!props.restaurantID ? (
         <ButtonText
