@@ -76,7 +76,6 @@ app.put("/updateRestaurant/:id", (req, res) => {
 
 // DELETING A RESTAURANT
 app.delete("/deleteRestaurant/:id/:image", (req, res) => {
-  console.log(req.body);
   const { id } = req.params;
   const { image } = req.params;
   deleteRestaurant(req, res, Restaurant, id, fs, image);

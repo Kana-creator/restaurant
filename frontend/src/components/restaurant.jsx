@@ -18,10 +18,7 @@ const Restaurant = (props) => {
         <p className="col-12">{restaurant.cuisin_type}</p>
         <p className="col-12">{restaurant.restaurant_location}</p>
       </div>
-      <div
-        className="action-div col-md-12 d-flex"
-        // style={{ minHeight: "100%" }}
-      >
+      <div className="action-div col-md-12 d-flex">
         <Link to={`/updateRestaurant/${restaurant._id}`}>
           <ButtonText
             type="button"

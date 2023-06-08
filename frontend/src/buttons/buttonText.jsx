@@ -6,6 +6,7 @@ const ButtonText = (props) => {
       <button
         type={props.type}
         className={props.className}
+        style={props.style}
         onClick={props.onClick}
       >
         {props.label}

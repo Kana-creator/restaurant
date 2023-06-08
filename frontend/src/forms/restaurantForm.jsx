@@ -70,17 +70,10 @@ const RestaurantForm = (props) => {
     const restaurant_name = document.getElementById("restaurant_name");
     const cuisin_type = document.getElementById("cuisin_type");
     const restaurant_location = document.getElementById("restaurant_location");
-    const restaurant_image = document.getElementById("restaurant_image");
 
-    const required_fielsd = [
-      // restaurant_image,
-      restaurant_name,
-      cuisin_type,
-      restaurant_location,
-    ];
+    const required_fielsd = [restaurant_name, cuisin_type, restaurant_location];
 
     if (
-      // restaurant_image.value.trim().length === 0 ||
       restaurant_name.value.trim().length === 0 ||
       cuisin_type.value.trim().length === 0 ||
       restaurant_location.value.trim().length === 0
@@ -120,6 +113,7 @@ const RestaurantForm = (props) => {
           setRestaurant({ ...restaurant, restaurant_name: e.target.value })
         }
       />
+
       <TextField
         type="text"
         className="col-md-12"
@@ -135,6 +129,7 @@ const RestaurantForm = (props) => {
           setRestaurant({ ...restaurant, cuisin_type: e.target.value })
         }
       />
+
       <TextField
         type="text"
         className="col-md-12"
@@ -151,6 +146,7 @@ const RestaurantForm = (props) => {
           setRestaurant({ ...restaurant, restaurant_location: e.target.value })
         }
       />
+
       <TextField
         type="file"
         className="col-md-12"
@@ -172,32 +168,36 @@ const RestaurantForm = (props) => {
         }}
       />
 
-      {/* <img
+      <img
         src={
           imgPreview !== null
             ? `${imgPreview}`
-            : `../images/${restaurant_info.map((r) => r.restaurant_image)}`
+            : props.restaurantID
+            ? `../images/${restaurant_info.map((r) => r.restaurant_image)}`
+            : null
         }
         alt="No image"
         className="img-fluid"
-      /> */}
+      />
 
       {!props.restaurantID ? (
         <ButtonText
           type="button"
-          className="col-md-12 btn btn-primary btn-md py-2"
+          className="col-md-12 btn btn-md py-2"
           label="Submit data"
           span=""
           id="submit_data"
+          style={{ background: "#24536d", color: "#ffffff" }}
           onClick={save_restaurant}
         />
       ) : (
         <ButtonText
           type="button"
-          className="col-md-12 btn btn-primary btn-md py-2"
+          className="col-md-12 btn btn-md py-2"
           label="Update info"
           span=""
           id="update_nfo"
+          style={{ background: "#24536d", color: "#ffffff" }}
           onClick={update_restaurant}
         />
       )}

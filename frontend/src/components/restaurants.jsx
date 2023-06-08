@@ -53,6 +53,7 @@ const Restaurants = () => {
               setSearchResults(newRestaurants);
             }
             setRestaurantsLength(newRestaurants.length);
+            alert(res.data.message);
           } else {
             alert(res.data.message);
           }
@@ -79,7 +80,9 @@ const Restaurants = () => {
               </Link>
               <p
                 className="btn btn-outline-danger btn-sm my-0 mx-1"
-                onClick={() => handleDelete(restaurant._id)}
+                onClick={() =>
+                  handleDelete(restaurant._id, restaurant.restaurant_image)
+                }
               >
                 Delete
               </p>
@@ -103,7 +106,9 @@ const Restaurants = () => {
               </Link>
               <p
                 className="btn btn-outline-danger btn-sm my-0 mx-1"
-                onClick={() => handleDelete(restaurant._id)}
+                onClick={() =>
+                  handleDelete(restaurant._id, restaurant.restaurant_image)
+                }
               >
                 Delete
               </p>

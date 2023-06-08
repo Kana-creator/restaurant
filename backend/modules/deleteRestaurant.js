@@ -7,13 +7,11 @@ const deleteRestaurant = async (req, res, Restaurant, id, fs, image) => {
       if (error) {
         console.log(error.message);
       } else {
-        console.log("Deleted");
+        return res.json({
+          message: "Restaurant deleted successfully",
+          status: "success",
+        });
       }
-    });
-
-    return res.json({
-      message: "Restaurant deleted successfully",
-      status: "success",
     });
   } catch (error) {
     return res.json({ message: error.message });
