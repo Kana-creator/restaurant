@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import handleSearch from "../functions/searchForRestaurant";
+import handleDelete from "../functions/deleteRestaurant";
 
 const Restaurants = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -17,49 +19,6 @@ const Restaurants = () => {
       })
       .catch((error) => alert(error));
   }, []);
-
-  const handleSearch = (field) => {
-    setSearchField(field.value);
-    const newRestaurants = restaurants.filter(
-      (rest) =>
-        rest.restaurant_name.toLowerCase().includes(field.value) ||
-        rest.restaurant_location.toLowerCase().includes(field.value) ||
-        rest.cuisin_type.toLowerCase().includes(field.value)
-    );
-
-    if (field.value === "") {
-      setRestaurantsLength(restaurants.length);
-    } else {
-      setSearchResults(newRestaurants);
-      setRestaurantsLength(newRestaurants.length);
-    }
-  };
-
-  const handleDelete = (id, image) => {
-    const confirm = window.confirm(
-      "Are you sure you want to permanently delete this Restaurant?"
-    );
-    if (confirm) {
-      axios
-        .delete(`http://localhost:1000/deleteRestaurant/${id}/${image}`)
-        .then((res) => {
-          if (res.data.status === "success") {
-            var newRestaurants;
-            if (searchField === "") {
-              newRestaurants = restaurants.filter((rest) => rest._id !== id);
-              setRestaurants(newRestaurants);
-            } else {
-              newRestaurants = searchResults.filter((rest) => rest._id !== id);
-              setSearchResults(newRestaurants);
-            }
-            setRestaurantsLength(newRestaurants.length);
-            alert(res.data.message);
-          } else {
-            alert(res.data.message);
-          }
-        });
-    }
-  };
 
   const allRestaurants =
     searchField === ""
@@ -81,7 +40,17 @@ const Restaurants = () => {
               <p
                 className="btn btn-outline-danger btn-sm my-0 mx-1"
                 onClick={() =>
-                  handleDelete(restaurant._id, restaurant.restaurant_image)
+                  handleDelete(
+                    restaurant._id,
+                    restaurant.restaurant_image,
+                    axios,
+                    searchField,
+                    restaurants,
+                    setRestaurants,
+                    searchResults,
+                    setSearchResults,
+                    setRestaurantsLength
+                  )
                 }
               >
                 Delete
@@ -107,7 +76,17 @@ const Restaurants = () => {
               <p
                 className="btn btn-outline-danger btn-sm my-0 mx-1"
                 onClick={() =>
-                  handleDelete(restaurant._id, restaurant.restaurant_image)
+                  handleDelete(
+                    restaurant._id,
+                    restaurant.restaurant_image,
+                    axios,
+                    searchField,
+                    restaurants,
+                    setRestaurants,
+                    searchResults,
+                    setSearchResults,
+                    setRestaurantsLength
+                  )
                 }
               >
                 Delete
@@ -119,26 +98,40 @@ const Restaurants = () => {
   return (
     <div>
       <div className="col-12 d-flex flex-wrap justify-content-center align-items-center">
-        {restaurants.length === 0 ? (
-          <p>No restaurant found</p>
-        ) : (
-          <h4 className="bg-info badge badge-info">{restaurantsLength}</h4>
-        )}
-
-        <div className="col-md-4">
+        <div className="col-md-12 my-2 d-flex justify-content-end align-items-center">
+          {restaurants.length === 0 ? (
+            <p>No restaurant found</p>
+          ) : (
+            <h4 className="bg-info badge badge-info">{restaurantsLength}</h4>
+          )}
           <input
             type="text"
-            className="form-control col-12"
+            className="form-contro col-4"
             id="search_field"
             placeholder="Search for a restaurant..."
-            onChange={(e) => handleSearch(document.getElementById(e.target.id))}
-            style={{ border: "10px solid #efefef", outline: "none" }}
+            onChange={(e) =>
+              handleSearch(
+                document.getElementById(e.target.id),
+                setSearchField,
+                restaurants,
+                setRestaurantsLength,
+                setSearchResults
+              )
+            }
+            style={{
+              border: "3px solid #efefef",
+              outline: "none",
+              padding: "5px",
+            }}
           />
         </div>
       </div>
 
-      <table className="table table-striped" border={1}>
-        <thead className="bg-secondary">
+      <table
+        className="table table-bordered table-hover text-center"
+        border={1}
+      >
+        <thead>
           <tr>
             <th>No</th>
             <th>Name</th>

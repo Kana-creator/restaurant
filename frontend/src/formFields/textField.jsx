@@ -11,6 +11,7 @@ const TextField = (props) => {
       <div className="input-div">
         <input
           type={props.type}
+          accept={props.accept}
           className="form-control"
           id={`${props.id}`}
           placeholder={`${props.placeholder}`}

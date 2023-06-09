@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import TextField from "../formFields/textField";
 import ButtonText from "../buttons/buttonText";
-
 import axios from "axios";
-import checkRequired from "../functions/checkRequired";
-import uploadImage from "../functions/uploadImage";
 import readFileNname from "../functions/readFileName";
-import clearForm from "../functions/clearForm";
 import { useNavigate } from "react-router-dom";
+import save_restaurant from "../functions/saveRestaurant";
+import update_restaurant from "../functions/updateRestaurant";
 
 const RestaurantForm = (props) => {
   const [restaurant, setRestaurant] = useState({
@@ -18,7 +16,6 @@ const RestaurantForm = (props) => {
   });
 
   const [restaurant_info, setRestaurantInfo] = useState([]);
-
   const [restaurant_img, setImg] = useState(null);
   const [imgPreview, setImgPreview] = useState(null);
   const navigate = useNavigate();
@@ -33,70 +30,8 @@ const RestaurantForm = (props) => {
       .catch((error) => alert(error));
   }, [props.restaurantID]);
 
-  const save_restaurant = () => {
-    const restaurant_name = document.getElementById("restaurant_name");
-    const cuisin_type = document.getElementById("cuisin_type");
-    const restaurant_location = document.getElementById("restaurant_location");
-    const restaurant_image = document.getElementById("restaurant_image");
-
-    const required_fielsd = [
-      restaurant_image,
-      restaurant_name,
-      cuisin_type,
-      restaurant_location,
-    ];
-
-    if (
-      restaurant_image.value.trim().length === 0 ||
-      restaurant_name.value.trim().length === 0 ||
-      cuisin_type.value.trim().length === 0 ||
-      restaurant_location.value.trim().length === 0
-    ) {
-      checkRequired(required_fielsd);
-    } else {
-      uploadImage(axios, restaurant_img);
-      axios
-        .post("http://localhost:1000/addRestaurant", restaurant)
-        .then((res) => {
-          clearForm(required_fielsd);
-          setImgPreview(null);
-          alert(res.data.message);
-        })
-        .catch((error) => alert(error));
-    }
-  };
-
-  const update_restaurant = () => {
-    const restaurant_name = document.getElementById("restaurant_name");
-    const cuisin_type = document.getElementById("cuisin_type");
-    const restaurant_location = document.getElementById("restaurant_location");
-
-    const required_fielsd = [restaurant_name, cuisin_type, restaurant_location];
-
-    if (
-      restaurant_name.value.trim().length === 0 ||
-      cuisin_type.value.trim().length === 0 ||
-      restaurant_location.value.trim().length === 0
-    ) {
-      checkRequired(required_fielsd);
-    } else {
-      axios
-        .put(
-          `http://localhost:1000/updateRestaurant/${props.restaurantID}`,
-          restaurant
-        )
-        .then((res) => {
-          uploadImage(axios, restaurant_img);
-          setImgPreview(null);
-          alert(res.data.message);
-          navigate("/");
-        })
-        .catch((error) => alert(error));
-    }
-  };
-
   return (
-    <form action="" className="col-8">
+    <form onSubmit={(e) => e.preventDefault()} className="col-8">
       <TextField
         type="text"
         className="col-md-12"
@@ -153,6 +88,7 @@ const RestaurantForm = (props) => {
         lable="Restaurant image"
         span="*"
         id="restaurant_image"
+        accept="image/*"
         value={
           props.restaurantID
             ? restaurant_info.map((r) => r.restaurant_image)
@@ -188,7 +124,9 @@ const RestaurantForm = (props) => {
           span=""
           id="submit_data"
           style={{ background: "#24536d", color: "#ffffff" }}
-          onClick={save_restaurant}
+          onClick={() =>
+            save_restaurant(axios, restaurant_img, restaurant, setImgPreview)
+          }
         />
       ) : (
         <ButtonText
@@ -198,7 +136,16 @@ const RestaurantForm = (props) => {
           span=""
           id="update_nfo"
           style={{ background: "#24536d", color: "#ffffff" }}
-          onClick={update_restaurant}
+          onClick={() =>
+            update_restaurant(
+              axios,
+              props,
+              restaurant,
+              restaurant_img,
+              setImgPreview,
+              navigate
+            )
+          }
         />
       )}
     </form>
