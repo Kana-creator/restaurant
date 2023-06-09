@@ -15,7 +15,10 @@ const Home = () => {
     },
   ]);
   return (
-    <div className="container-fluid col-12 d-flex fles-wrap justify-conent-center align-items-center">
+    <div
+      data-testId="home"
+      className="container-fluid col-12 d-flex fles-wrap justify-conent-center align-items-center"
+    >
       <div className="sideBar col-md-3">
         <div className="head d-flex flex-wrap align-items-center">
           <div className="">

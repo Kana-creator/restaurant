@@ -10,6 +10,8 @@ const uploadImage = (axios, image) => {
       }
     })
     .catch((error) => alert(error));
+
+  return true;
 };
 
 module.exports = uploadImage;

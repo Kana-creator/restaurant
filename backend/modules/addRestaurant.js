@@ -12,6 +12,8 @@ const aadRestaurant = async (req, res, Restaurant) => {
   } catch (error) {
     return res.json({ message: error.message, status: "failed" });
   }
+
+  return true;
 };
 
 module.exports = aadRestaurant;

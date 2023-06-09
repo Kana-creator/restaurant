@@ -18,5 +18,7 @@ const handleSearch = (
     setSearchResults(newRestaurants);
     setRestaurantsLength(newRestaurants.length);
   }
+
+  return true;
 };
 module.exports = handleSearch;
