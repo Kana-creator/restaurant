@@ -57,11 +57,6 @@ app.get("/fetchRestaurants", (req, res) => {
   fetchRestaurants(req, res, Restaurant);
 });
 
-// DELETE RESTAURANT
-app.post("/deleteRestaurant", (req, res) => {
-  return res.json({ message: "connected" });
-});
-
 // FETCH RESTAURANT DETAILS
 app.get("/fetchRestaurantDetails/:id", (req, res) => {
   const { id } = req.params;

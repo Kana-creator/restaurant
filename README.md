@@ -13,7 +13,7 @@
 
 After installing mongoDB make sure you include these two directories on the C drive of your computer (data/db) this is where mongodb stores data by default. In the process of installation the mongoDB server, let the "install as a service" option to be checked so that the mongodb server runs automatically on computer booting.
 
-Depending on the mongoDB version you installed for example I installed version 6.0.1, include the following path to the environment variables on your computer "C:\Program Files\MongoDB\Server\6.0\bin". This makes easy for you the open the mongodb server in the comand prompt from any where.
+Depending on the mongoDB version you installed for example I installed version 6.0.1, include the following path to the environment variables on your computer "C:\Program Files\MongoDB\Server\6.0\bin". This makes it easy for you to start the mongodb server in the comand prompt from any where by simply typing in comand "mongod" and hit enter.
 
 # INSTALLING MONGOSH CONSOLE
 
